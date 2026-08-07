@@ -38,6 +38,41 @@ local SettingsTab = Window:Tab({
     Title = "Ajustes",
     -- Sin icono
 })
+-- ========================================================
+-- ELEMENTOS DE LA PESTAÑA PRINCIPAL
+-- ========================================================
+MainTab:Section({ Title = "Combate" })
+
+-- 1. Toggle para Ataque Principal (Auto Ataque)
+MainTab:Toggle({
+    Title = "Ataque Principal",
+    Desc = "Activa o desactiva el ataque continuo",
+    Value = false,
+    Callback = function(State)
+        getgenv().AutoAtaque = State 
+        
+        if State then
+            task.spawn(function()
+                while getgenv().AutoAtaque do
+                    task.wait(0.1) 
+                    
+                    -- (Aquí pegarás luego el código de ataque)
+                    
+                end
+            end)
+        end
+    end,
+})
+
+-- 2. Botón para Atacar a Todos
+MainTab:Button({
+    Title = "Atacar a Todos",
+    Desc = "Daña a todos los enemigos a la vez",
+    Callback = function()
+        -- (Aquí pegarás luego el código de atacar a todos)
+    end,
+})
+
 
 -- ========================================================
 -- NOTIFICACIÓN DE INICIO
