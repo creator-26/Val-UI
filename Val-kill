@@ -3,6 +3,18 @@
 -- ========================================================
 local ValUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/creator-26/Val-UI/main/dist/main.lua"))()
 
+
+
+-- Definición de variables de estado que faltaban
+local State = {
+    AutoKillEnabled = false,
+    AutoKillAll = true,
+    TargetPlayerName = "",
+    Whitelist = {},
+    Blacklist = {},
+    AtaqueRapido = false,
+}
+
 -- ========================================================
 -- VENTANA PRINCIPAL
 -- ========================================================
