@@ -8,7 +8,7 @@ local ValUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/creator
 -- ========================================================
 local Window = ValUI:CreateWindow({
     Title = "VAL-TOP SUPREMO", 
-    
+    Icon = "rbxassetid://TU_ID_AQUI",
     Author = "phol_268t",
     Folder = "MiScript_Config", 
     Size = UDim2.fromOffset(580, 460),
