@@ -7,9 +7,9 @@ local ValUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/creator
 -- VENTANA PRINCIPAL
 -- ========================================================
 local Window = ValUI:CreateWindow({
-    Title = "Script Hub", 
-    -- Eliminamos la línea del Icon para evitar el error 402
-    Author = "por TuNombre",
+    Title = "VAL-TOP SUPREMO", 
+    
+    Author = "phol_268t",
     Folder = "MiScript_Config", 
     Size = UDim2.fromOffset(580, 460),
     Transparent = true,
