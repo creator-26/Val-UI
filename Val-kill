@@ -2,7 +2,7 @@
 -- CARGA DE LA LIBRERÍA WINDUI
 -- URL Documentación: https://footagesus.github.io/treehub-web/docs/windui
 -- ========================================================
-local WindUI = loadstring(game:HttpGet("https://tree-hub.vercel.app/api/UI/WindUI"))()
+local ValUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/creator-26/Val-UI/main/dist/main.lua"))()
 
 -- ========================================================
 -- VENTANA PRINCIPAL
