@@ -1,20 +1,19 @@
 -- ========================================================
--- CARGA DE LA LIBRERÍA WINDUI
--- URL Documentación: https://footagesus.github.io/treehub-web/docs/windui
+-- CARGA DE LA LIBRERÍA VAL-UI
 -- ========================================================
 local ValUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/creator-26/Val-UI/main/dist/main.lua"))()
 
 -- ========================================================
 -- VENTANA PRINCIPAL
 -- ========================================================
-local Window = WindUI:CreateWindow({
-    Title = "VAL-TOP SUPREMO", -- Cambia esto por el título de tu script original
-    Icon = "code", 
-    Author = "phol_268t",
-    Folder = "MiScript_WindUI", -- Nombre de la carpeta para guardar la configuración
+local Window = ValUI:CreateWindow({
+    Title = "Script Hub", 
+    -- Eliminamos la línea del Icon para evitar el error 402
+    Author = "por TuNombre",
+    Folder = "MiScript_Config", 
     Size = UDim2.fromOffset(580, 460),
     Transparent = true,
-    Theme = "Dark", -- Temas: "Dark", "Light", "Rose", "Aqua"
+    Theme = "Dark", 
 })
 
 -- ========================================================
@@ -22,28 +21,28 @@ local Window = WindUI:CreateWindow({
 -- ========================================================
 local MainTab = Window:Tab({
     Title = "Principal",
-    Icon = "home",
+    -- Sin icono
 })
 
 local PlayerTab = Window:Tab({
     Title = "Jugador",
-    Icon = "user",
+    -- Sin icono
 })
 
 local MiscTab = Window:Tab({
     Title = "Otros",
-    Icon = "sliders",
+    -- Sin icono
 })
 
 local SettingsTab = Window:Tab({
     Title = "Ajustes",
-    Icon = "settings",
+    -- Sin icono
 })
 
 -- ========================================================
 -- NOTIFICACIÓN DE INICIO
 -- ========================================================
-WindUI:Notify({
+ValUI:Notify({
     Title = "Script Cargado",
     Content = "La interfaz se cargó correctamente.",
     Duration = 3,
