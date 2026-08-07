@@ -15,6 +15,20 @@ local State = {
     AtaqueRapido = false,
 }
 
+local function getPlayerList()
+    local list = {}
+    for _, player in ipairs(game:GetService("Players"):GetPlayers()) do
+        if player ~= game:GetService("Players").LocalPlayer then
+            local entry = player.DisplayName .. " | " .. player.Name
+            table.insert(list, entry)
+        end
+    end
+    if #list == 0 then
+        table.insert(list, "Sin jugadores en el servidor")
+    end
+    return list
+end
+
 -- ========================================================
 -- VENTANA PRINCIPAL
 -- ========================================================
