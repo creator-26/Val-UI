@@ -38,38 +38,39 @@ local SettingsTab = Window:Tab({
     Title = "Ajustes",
     -- Sin icono
 })
+ 
 -- ========================================================
--- ELEMENTOS DE LA PESTAÑA PRINCIPAL
+-- ELEMENTOS DE LA PESTAÑA PRINCIPAL (COMBATE)
 -- ========================================================
-MainTab:Section({ Title = "Combate" })
+MainTab:Section({ Title = "Combate Principal" })
 
--- 1. Toggle para Ataque Principal (Auto Ataque)
+-- 1. Toggle para Auto Kill Principal
 MainTab:Toggle({
-    Title = "Ataque Principal",
-    Desc = "Activa o desactiva el ataque continuo",
-    Value = false,
-    Callback = function(State)
-        getgenv().AutoAtaque = State 
+    Title = "Auto Kill Principal",
+    Desc = "Ataca continuamente a los jugadores válidos",
+    Value = State.AutoKillEnabled, -- Usamos el estado guardado de tu JSON
+    Callback = function(value)
+        State.AutoKillEnabled = value
         
-        if State then
-            task.spawn(function()
-                while getgenv().AutoAtaque do
-                    task.wait(0.1) 
-                    
-                    -- (Aquí pegarás luego el código de ataque)
-                    
-                end
-            end)
+        -- Llamamos a tus funciones originales de la Sección 4
+        if value then 
+            startAutoKill() 
+        else 
+            stopAutoKill() 
         end
+        
+        saveLists() -- Guarda la configuración
     end,
 })
 
--- 2. Botón para Atacar a Todos
-MainTab:Button({
+-- 2. Toggle para Atacar a Todos (Modo)
+MainTab:Toggle({
     Title = "Atacar a Todos",
-    Desc = "Daña a todos los enemigos a la vez",
-    Callback = function()
-        -- (Aquí pegarás luego el código de atacar a todos)
+    Desc = "Ignora al objetivo único y ataca a todo el servidor",
+    Value = State.AutoKillAll, -- Usamos tu variable original
+    Callback = function(value)
+        State.AutoKillAll = value
+        saveLists()
     end,
 })
 
