@@ -1,0 +1,53 @@
+-- ========================================================
+-- CARGA DE LA LIBRERÍA WINDUI
+-- URL Documentación: https://footagesus.github.io/treehub-web/docs/windui
+-- ========================================================
+local WindUI = loadstring(game:HttpGet("https://tree-hub.vercel.app/api/UI/WindUI"))()
+
+-- ========================================================
+-- VENTANA PRINCIPAL
+-- ========================================================
+local Window = WindUI:CreateWindow({
+    Title = "Script Hub", -- Cambia esto por el título de tu script original
+    Icon = "code", 
+    Author = "por TuNombre",
+    Folder = "MiScript_WindUI", -- Nombre de la carpeta para guardar la configuración
+    Size = UDim2.fromOffset(580, 460),
+    Transparent = true,
+    Theme = "Dark", -- Temas: "Dark", "Light", "Rose", "Aqua"
+})
+
+-- ========================================================
+-- PESTAÑAS PRINCIPALES (TABS)
+-- ========================================================
+local MainTab = Window:Tab({
+    Title = "Principal",
+    Icon = "home",
+})
+
+local PlayerTab = Window:Tab({
+    Title = "Jugador",
+    Icon = "user",
+})
+
+local MiscTab = Window:Tab({
+    Title = "Otros",
+    Icon = "sliders",
+})
+
+local SettingsTab = Window:Tab({
+    Title = "Ajustes",
+    Icon = "settings",
+})
+
+-- ========================================================
+-- NOTIFICACIÓN DE INICIO
+-- ========================================================
+WindUI:Notify({
+    Title = "Script Cargado",
+    Content = "La interfaz se cargó correctamente.",
+    Duration = 3,
+})
+
+-- Seleccionar la primera pestaña por defecto
+Window:SelectTab(1)
