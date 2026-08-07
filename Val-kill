@@ -8,9 +8,9 @@ local WindUI = loadstring(game:HttpGet("https://tree-hub.vercel.app/api/UI/WindU
 -- VENTANA PRINCIPAL
 -- ========================================================
 local Window = WindUI:CreateWindow({
-    Title = "Script Hub", -- Cambia esto por el título de tu script original
+    Title = "VAL-TOP SUPREMO", -- Cambia esto por el título de tu script original
     Icon = "code", 
-    Author = "por TuNombre",
+    Author = "phol_268t",
     Folder = "MiScript_WindUI", -- Nombre de la carpeta para guardar la configuración
     Size = UDim2.fromOffset(580, 460),
     Transparent = true,
