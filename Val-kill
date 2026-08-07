@@ -100,6 +100,47 @@ MainTab:Toggle({
     end,
 })
 
+MainTab:Section({ Title = "Selección de Objetivo" })
+
+local TargetLabel = MainTab:Label({
+    Title = "Objetivo Actual: Ninguno",
+})
+
+local TargetDropdown = MainTab:Dropdown({
+    Title = "Seleccionar Jugador",
+    Values = getPlayerList(),
+    Default = "",
+    Callback = function(selected)
+        if selected and selected ~= "" and selected ~= "Sin jugadores en el servidor" then
+            local username = selected
+            if string.find(selected, " | ") then
+                username = string.split(selected, " | ")[2]
+            end
+
+            State.TargetPlayerName = username
+            State.AutoKillAll = false
+            TargetLabel:Set("Objetivo Actual: " .. selected)
+        end
+    end,
+})
+
+MainTab:Button({
+    Title = "🔄 Refrescar Lista de Jugadores",
+    Callback = function()
+        TargetDropdown:SetValues(getPlayerList())
+    end,
+})
+
+MainTab:Button({
+    Title = "❌ Quitar Objetivo Seleccionado",
+    Callback = function()
+        State.TargetPlayerName = ""
+        TargetLabel:Set("Objetivo Actual: Ninguno")
+        TargetDropdown:SetValues(getPlayerList())
+    end,
+})
+
+
 
 -- ========================================================
 -- NOTIFICACIÓN DE INICIO
