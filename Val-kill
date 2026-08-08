@@ -52,19 +52,20 @@ local function updateSpectate()
     if not State.SpectatingPlayer then return end
     
     -- 1. Detectar si el jugador que especteas se sale
-    State.SpectatePlayerLeftConn = Players.PlayerRemoving:Connect(function(plr)
+        State.SpectatePlayerLeftConn = Players.PlayerRemoving:Connect(function(plr)
         if plr == State.SpectatingPlayer then
-            -- NOTIFICACIÓN DE ESTILO AVISO (Igual a la de Blacklist)
-            ValUI:Notify({
-                Title = "⚠️ Espectador",
-                Content = "El jugador " .. plr.Name .. " ha abandonado el servidor.",
-                Duration = 5,
-            })
+            pcall(function()
+                StarterGui:SetCore("SendNotification", {
+                    Title = "⚠️ Espectador",
+                    Text = "El jugador " .. plr.Name .. " ha abandonado el servidor.",
+                    Duration = 5,
+                })
+            end)
             
-            -- Detener el modo espectador automáticamente
             stopSpectate()
         end
     end)
+
 
     -- 2. Bucle de seguimiento de cámara
     if State.SpectateConnection then State.SpectateConnection:Disconnect() end
