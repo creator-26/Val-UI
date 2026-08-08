@@ -45,45 +45,7 @@ local State = {
         
     }
 }
--- =====================================================================
--- FUNCIÓN DE ESPECTADOR (CON AVISO DE SALIDA)
--- =====================================================================
-local function updateSpectate()
-    if not State.SpectatingPlayer then return end
-    
-    -- 1. Detectar si el jugador que especteas se sale
-        State.SpectatePlayerLeftConn = Players.PlayerRemoving:Connect(function(plr)
-        if plr == State.SpectatingPlayer then
-            pcall(function()
-                StarterGui:SetCore("SendNotification", {
-                    Title = "⚠️ Espectador",
-                    Text = "El jugador " .. plr.Name .. " ha abandonado el servidor.",
-                    Duration = 5,
-                })
-            end)
-            
-            stopSpectate()
-        end
-    end)
 
-
-    -- 2. Bucle de seguimiento de cámara
-    if State.SpectateConnection then State.SpectateConnection:Disconnect() end
-    State.SpectateConnection = RunService.RenderStepped:Connect(function()
-        if State.SpectatingPlayer and State.SpectatingPlayer.Character then
-            local char = State.SpectatingPlayer.Character
-            local humanoid = char:FindFirstChild("Humanoid")
-            if humanoid and workspace.CurrentCamera then
-                workspace.CurrentCamera.CameraSubject = humanoid
-            end
-        else
-            -- Si el jugador muere o desaparece, regresamos a nuestro personaje
-            if workspace.CurrentCamera and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
-                workspace.CurrentCamera.CameraSubject = LocalPlayer.Character.Humanoid
-            end
-        end
-    end)
-end
 
 -- =====================================================================
 -- MONITOR DE BLACKLIST (AVISOS DE ENTRADA/SALIDA)
@@ -576,6 +538,22 @@ end)
 -- ================== SISTEMA DE CÁMARA Y ANTI-AFK ==================
 local function updateSpectate()
     if State.SpectateConnection then State.SpectateConnection:Disconnect() end
+    -- AGREGA ESTO DENTRO DE TU updateSpectate() ACTUAL:
+    if State.SpectatePlayerLeftConn then State.SpectatePlayerLeftConn:Disconnect() end
+    
+    State.SpectatePlayerLeftConn = Players.PlayerRemoving:Connect(function(plr)
+        if plr == State.SpectatingPlayer then
+            pcall(function()
+                StarterGui:SetCore("SendNotification", {
+                    Title = "⚠️ Espectador",
+                    Text = "El jugador " .. plr.Name .. " ha abandonado el servidor.",
+                    Duration = 5,
+                })
+            end)
+            stopSpectate()
+        end
+    end)
+
     State.SpectateConnection = RunService.Heartbeat:Connect(function()
         if State.SpectatingPlayer and State.SpectatingPlayer ~= LocalPlayer then
             if State.SpectatingPlayer.Character then
