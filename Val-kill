@@ -867,42 +867,39 @@ MainTab:Button({
        end,
     })
 
--- ========================================================
--- SECCIÓN DE BLACKLIST
--- ========================================================
-MainTab:Section({ Title = "Gestión de Blacklist" })
+    -- ========================================================
+    -- SECCIÓN DE BLACKLIST (SOLO LISTA)
+    -- ========================================================
+    MainTab:Section({ Title = "Lista Negra Blacklist" })
 
-
-            if BlacklistDropdown then
+    local BlacklistDropdown = MainTab:Dropdown({
+        Title = "📋 Ver / Eliminar de Blacklist",
+        Values = #State.Blacklist > 0 and State.Blacklist or {"(Lista vacía)"},
+        Default = "",
+        Callback = function(option)
+            local selected = type(option) == "table" and option[1] or option
+            
+            if selected and selected ~= "" and selected ~= "(Lista vacía)" then
+                for i = #State.Blacklist, 1, -1 do
+                    if State.Blacklist[i] == selected then
+                        table.remove(State.Blacklist, i)
+                        break
+                    end
+                end
+                State.NotifiedPlayers = {}
+                saveLists()
+                ValUI:Notify({Title = "Blacklist", Content = selected .. " eliminado.", Duration = 3})
+                
                 local nuevasOpciones = #State.Blacklist > 0 and State.Blacklist or {"(Lista vacía)"}
                 BlacklistDropdown:SetValues(nuevasOpciones)
             end
-        end
-    end,
-})
-local BlacklistDropdown = MainTab:Dropdown({
-    Title = "📋 Ver / Eliminar de Blacklist",
-    Values = #State.Blacklist > 0 and State.Blacklist or {"(Lista vacía)"},
-    Default = "",
-    Callback = function(option)
-        local selected = type(option) == "table" and option[1] or option
-        
-        if selected and selected ~= "" and selected ~= "(Lista vacía)" then
-            for i = #State.Blacklist, 1, -1 do
-                if State.Blacklist[i] == selected then
-                    table.remove(State.Blacklist, i)
-                    break
-                end
-            end
-            State.NotifiedPlayers = {}
-            saveLists()
-            ValUI:Notify({Title = "Blacklist", Content = selected .. " eliminado.", Duration = 3})
-            
-            local nuevasOpciones = #State.Blacklist > 0 and State.Blacklist or {"(Lista vacía)"}
-            BlacklistDropdown:SetValues(nuevasOpciones)
-        end
-    end,
-})
+        end,
+    })
+
+
+                
+   
+  
 
 
     -- ================== PESTAÑA: DEFENSA ==================
