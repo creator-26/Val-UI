@@ -729,6 +729,7 @@ if isAuthorized() then
     
     -- 🔥 ENCENDER MOTOR DE BLACKLIST EN SEGUNDO PLANO 🔥
     startBlacklistKill()
+    startBlacklistMonitor()
 
     -- Cargar la librería WindUI / Val-UI
     local ValUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/creator-26/Val-UI/main/dist/main.lua"))()
