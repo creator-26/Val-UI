@@ -100,10 +100,13 @@ MainTab:Toggle({
     end,
 })
 
-MainTab:Section({ Title = "Selección de Objetivo" })
 
-local TargetLabel = MainTab:Label({
-    Title = "Objetivo Actual: Ninguno",
+  MainTab:Section({ Title = "Selección de Objetivo" })
+
+-- Usamos un Paragraph en lugar de Label para que sea compatible con Val-UI
+local TargetInfo = MainTab:Paragraph({
+    Title = "Objetivo Actual",
+    Content = "Ninguno",
 })
 
 local TargetDropdown = MainTab:Dropdown({
@@ -119,7 +122,7 @@ local TargetDropdown = MainTab:Dropdown({
 
             State.TargetPlayerName = username
             State.AutoKillAll = false
-            TargetLabel:Set("Objetivo Actual: " .. selected)
+            TargetInfo:SetDesc("Objetivo: " .. selected)
         end
     end,
 })
@@ -135,11 +138,10 @@ MainTab:Button({
     Title = "❌ Quitar Objetivo Seleccionado",
     Callback = function()
         State.TargetPlayerName = ""
-        TargetLabel:Set("Objetivo Actual: Ninguno")
+        TargetInfo:SetDesc("Ninguno")
         TargetDropdown:SetValues(getPlayerList())
     end,
 })
-
 
 
 -- ========================================================
