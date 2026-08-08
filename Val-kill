@@ -84,6 +84,33 @@ local function updateSpectate()
     end)
 end
 
+-- =====================================================================
+-- MONITOR DE BLACKLIST (AVISOS DE ENTRADA/SALIDA)
+-- =====================================================================
+local function startBlacklistMonitor()
+    -- Aviso cuando alguien de la lista entra
+    Players.PlayerAdded:Connect(function(player)
+        if isBlacklisted(player) and State.Notificaciones then
+            ValUI:Notify({
+                Title = "⚠️ ALERTA DE BLACKLIST",
+                Content = player.Name .. " acaba de unirse al servidor.",
+                Duration = 5,
+            })
+        end
+    end)
+
+    -- Aviso cuando alguien de la lista se va
+    Players.PlayerRemoving:Connect(function(player)
+        if isBlacklisted(player) and State.Notificaciones then
+            ValUI:Notify({
+                Title = "✅ SALIDA DE BLACKLIST",
+                Content = player.Name .. " se ha ido del servidor.",
+                Duration = 5,
+            })
+        end
+    end)
+end
+
 
 --=====================================================================
 -- 2. SISTEMA DE SEGURIDAD (ENLAZADO AL PANEL VERCEL)
