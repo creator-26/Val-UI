@@ -48,12 +48,22 @@ local State = {
 
 
 -- =====================================================================
+-- 1.1. FUNCIÓN AUXILIAR DE BLACKLIST (DEBE IR ARRIBA)
+-- =====================================================================
+local function isBlacklisted(plr)
+    for _, name in ipairs(State.Blacklist) do
+        if plr.Name:lower() == name:lower() or plr.DisplayName:lower() == name:lower() then 
+            return true 
+        end
+    end
+    return false
+end
+
+-- =====================================================================
 -- MONITOR DE BLACKLIST (AVISOS DE ENTRADA/SALIDA)
 -- =====================================================================
 local function startBlacklistMonitor()
-    -- Aviso cuando alguien de la lista entra
-    
-         Players.PlayerAdded:Connect(function(player)
+    Players.PlayerAdded:Connect(function(player)
         if isBlacklisted(player) and State.Notificaciones then
             pcall(function()
                 StarterGui:SetCore("SendNotification", {
@@ -77,6 +87,7 @@ local function startBlacklistMonitor()
         end
     end)
 end
+
    
 
 --=====================================================================
