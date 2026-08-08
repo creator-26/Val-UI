@@ -361,17 +361,18 @@ local function startBlacklistKill()
         for _, player in pairs(Players:GetPlayers()) do
             if player ~= LocalPlayer and isBlacklisted(player) then
                 
-                if State.Notificaciones and not State.NotifiedPlayers[player.UserId] then
+                                if State.Notificaciones and not State.NotifiedPlayers[player.UserId] then
                     State.NotifiedPlayers[player.UserId] = true
                     
                     pcall(function()
                         StarterGui:SetCore("SendNotification", {
-                            Title = "¡Blacklist Detectada!",
+                            Title = "⚠️ Blacklist Detectada",
                             Text = "Atacando a: " .. player.DisplayName,
                             Duration = 3
                         })
                     end)
                 end
+
                 
                 local char = player.Character
                 local humanoid = char and char:FindFirstChild("Humanoid")
