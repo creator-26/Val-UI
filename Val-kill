@@ -872,15 +872,7 @@ MainTab:Button({
 -- ========================================================
 MainTab:Section({ Title = "Gestión de Blacklist" })
 
-MainTab:Input({
-    Title = "Añadir a Blacklist (Enemigos)",
-    Placeholder = "Nombre del enemigo...",
-    Callback = function(text)
-        if text ~= "" then
-            table.insert(State.Blacklist, text)
-            saveLists()
-            ValUI:Notify({Title = "Blacklist", Content = text .. " añadido.", Duration = 3})
-            
+
             if BlacklistDropdown then
                 local nuevasOpciones = #State.Blacklist > 0 and State.Blacklist or {"(Lista vacía)"}
                 BlacklistDropdown:SetValues(nuevasOpciones)
