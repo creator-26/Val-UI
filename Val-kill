@@ -699,7 +699,7 @@ if isAuthorized() then
 
     MainTab:Toggle({
         Title = "Atacar a Todos",
-        Desc = "Ignora al objetivo único y ataca a todo el servidor",
+        Desc = "Ignora al objetivo único y ataca a todos",
         Value = State.AutoKillAll,
         Callback = function(value)
             State.AutoKillAll = value
@@ -731,6 +731,28 @@ if isAuthorized() then
             end
         end,
     })
+-- Espectear al Jugador Seleccionado
+local SpectateToggle = MainTab:Toggle({
+    Title = "👁️ Espectear al Jugador",
+    Desc = "Sigue la cámara del jugador seleccionado",
+    Value = false,
+    Callback = function(value)
+        if value and State.TargetPlayerName ~= "" then
+            for _, p in pairs(Players:GetPlayers()) do
+                if string.find(string.lower(p.Name), string.lower(State.TargetPlayerName)) then
+                    State.SpectatingPlayer = p
+                    updateSpectate()
+                    return
+                end
+            end
+            ValUI:Notify({Title = "Aviso", Content = "No se encontró al jugador.", Duration = 3})
+            SpectateToggle:Set(false)
+        else
+            stopSpectate()
+        end
+    end,
+})
+
 
     MainTab:Button({
         Title = "🔄 Refrescar Lista de Jugadores",
