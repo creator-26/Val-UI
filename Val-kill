@@ -709,28 +709,28 @@ if isAuthorized() then
 
     MainTab:Section({ Title = "Selección de Objetivo" })
 
-    local TargetInfo = MainTab:Paragraph({
-        Title = "Objetivo Actual",
-        Content = State.TargetPlayerName ~= "" and State.TargetPlayerName or "Ninguno",
-    })
+local TargetInfo = MainTab:Paragraph({
+    Title = "Objetivo Actual",
+    Content = State.TargetPlayerName ~= "" and State.TargetPlayerName or "Ninguno",
+})
 
-    local TargetDropdown = MainTab:Dropdown({
-        Title = "Seleccionar Jugador",
-        Values = getPlayerList(),
-        Default = "",
-        Callback = function(selected)
-            if selected and selected ~= "" and selected ~= "Sin jugadores en el servidor" then
-                local username = selected
-                if string.find(selected, " | ") then
-                    username = string.split(selected, " | ")[2]
-                end
-
-                State.TargetPlayerName = username
-                State.AutoKillAll = false
-                TargetInfo:SetDesc("Objetivo: " .. selected)
+local TargetDropdown = MainTab:Dropdown({
+    Title = "Seleccionar Jugador",
+    Values = getPlayerList(),
+    Default = "",
+    Callback = function(selected)
+        if selected and selected ~= "" and selected ~= "Sin jugadores en el servidor" then
+            local username = selected
+            if string.find(selected, " | ") then
+                username = string.split(selected, " | ")[2]
             end
-        end,
-    })
+
+            State.TargetPlayerName = username
+            State.AutoKillAll = false
+            TargetInfo:SetDesc("Objetivo: " .. selected)
+        end
+    end,
+})
 -- Espectear al Jugador Seleccionado
 local SpectateToggle = MainTab:Toggle({
     Title = "👁️ Espectear al Jugador",
@@ -755,20 +755,23 @@ local SpectateToggle = MainTab:Toggle({
 
 
     MainTab:Button({
-        Title = "🔄 Refrescar Lista de Jugadores",
-        Callback = function()
-            TargetDropdown:SetValues(getPlayerList())
-        end,
-    })
+    Title = "🔄 Refrescar Lista de Jugadores",
+    Callback = function()
+        -- Forzamos a actualizar los valores del Dropdown con los jugadores actuales
+        localnewList = getPlayerList()
+        TargetDropdown:SetValues(newnewList)
+        ValUI:Notify({Title = "Lista Actualizada", Content = "Se actualizó la lista de jugadores.", Duration = 2})
+    end,
+})
 
-    MainTab:Button({
-        Title = "❌ Quitar Objetivo Seleccionado",
-        Callback = function()
-            State.TargetPlayerName = ""
-            TargetInfo:SetDesc("Ninguno")
-            TargetDropdown:SetValues(getPlayerList())
-        end,
-    })
+MainTab:Button({
+    Title = "❌ Quitar Objetivo Seleccionado",
+    Callback = function()
+        State.TargetPlayerName = ""
+        TargetInfo:SetDesc("Ninguno")
+        TargetDropdown:SetValues(getPlayerList())
+    end,
+})
 
     -- Whitelist y Blacklist inputs
     MainTab:Section({Title = "Listas de Control"})
